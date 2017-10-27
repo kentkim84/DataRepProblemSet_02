@@ -6,8 +6,10 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Guessing game\n")
-	fmt.Fprintf(w, "Your guess is %s!", r.URL.Path[1:])
+	title := "Guessing Game"
+	response := r.URL.Path[1:]
+	fmt.Fprintf(w, "<h1>%s</h1>", title)
+	fmt.Fprintf(w, "<p>Your guess is %s!<p>", response)
 }
 
 func main() {
