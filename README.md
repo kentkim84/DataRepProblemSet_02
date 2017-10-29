@@ -1,9 +1,12 @@
 GMIT Software Development 3rd year.
+
 Module: Data Representation.
+
 GoLang Problem sheet.
 
 ### Go Examples
-This repository contains some example code written in the programming language Go. The author is Yongjin Kim, a Student at GMIT.
+##### This repository contains some example code written in the programming language Go.
+##### The author is Yongjin Kim, a Student at GMIT.
 ---
 This problem set is to learn the fundamentals of creating a web application in Go. 
 
@@ -15,32 +18,45 @@ This problem set is to learn the fundamentals of creating a web application in G
 git clone https://github.com/kentkim84/GoLangWebAppProject.git
 ```
 ## Coding Standards
-// Version 0.1 using C standards
+// Version 0.2 using C standards
 
 ### 1. Naming Conventions and Style
 1.1. Use Pascal casing for class and structs
     
-    class PlayerManager;
-    struct AnimationInfo;
+    type Rectangle struct {
+        Name string
+        Width, Height float64
+    }
+
+    func (r Rectangle) Area() float64 {
+        return r.Width * r.Height
+    }
 
 1.2. Use camel casing for local variable names and function parameters
     
-    void SomeMethod(const int someParameter);
+    func SomeMethod(someParameter const int)
     {
-        int someNumber;
-    
+        someNumber int
     }
 
 1.3. Use verb-object pairs for method names
 a.	Use pascal casing for public methods
         
     public:
-    void DoSomething();
+    func DoSomething()
 
 b.	Use camel casing for other methods
         
     private:
-    void doSomething();
+    func doSomething()
+
+1.4. Put constant variables after import
+
+    import (
+        "fmt"
+    )
+
+    const CONSTANT_NUMBER int = 100
 
 ### References
 This examples are from
