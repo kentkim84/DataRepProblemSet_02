@@ -1,21 +1,19 @@
-GMIT Software Development 3rd year
-
-Module: Data Representation
-
-GoLang Problem sheet
+GMIT Software Development 3rd year.
+Module: Data Representation.
+GoLang Problem sheet.
 
 ### Go Examples
-
 This repository contains some example code written in the programming language Go. The author is Yongjin Kim, a Student at GMIT.
-
+---
 This problem set is to learn the fundamentals of creating a web application in Go. 
 
 ## How to clone
 1. Open **Git Bash**.
 2. Change the current working directory to the location where you want the cloned directory to be made.
-3. Type 'git clone', and then paste the URL 'https://github.com/kentkim84/GoLangWebAppProject.git' or 'git@github.com:kentkim84/GoLangWebAppProject.git'
+3. Type 'git clone', and then paste the URL `https://github.com/kentkim84/GoLangWebAppProject.git` or `git@github.com:kentkim84/GoLangWebAppProject.git`
+```
 git clone https://github.com/kentkim84/GoLangWebAppProject.git
-
+```
 ## Coding Standards
 // Version 0.1 using C standards
 
