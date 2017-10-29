@@ -41,7 +41,7 @@ func genRandInt(minNum int, maxNum int) int {
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	// set local variables
-	headTitle := "Guessing Game"
+	headTitle := "Guessing Game index page"
 	bodyTitle := "Guessing Game"
 
 	// initialise local variables to struct
@@ -61,7 +61,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func guessHandler(w http.ResponseWriter, r *http.Request) {
 	// set local variables
-	headTitle := "Guessing Game"
+	headTitle := "Guessing Game page"
 	message := "Guess a number between 1 and 20"
 	save := true
 
@@ -88,7 +88,7 @@ func guessHandler(w http.ResponseWriter, r *http.Request) {
   		log.Print("template parsing error: ", err) // log error message
 	}
 	t.Execute(w, MyPageVariables)
-	// fmt.Fprintf(w, "Execute guessHandler")
+
 
 	// read the value from the input box in the form
 	guessNum := r.FormValue("guess")
@@ -98,20 +98,15 @@ func guessHandler(w http.ResponseWriter, r *http.Request) {
 
 	// increase the try number by 1
 	if gv.TryNumber == 0 && gv.RandomNumber == 0 {
-		/* fmt.Fprintf(w, "init random number: %d<br>", gv.RandomNumber)
-		fmt.Fprintf(w, "init try number: %d<br>", gv.TryNumber) */
 		gv.RandomNumber = randNum
 	}
 	
-	//fmt.Fprintf(w, "<h3>random number: %d</h3>", gv.RandomNumber)
-	//fmt.Fprintf(w, "<h3>try number: %d</h3>", gv.TryNumber)
 	fmt.Fprintf(w, "<h3>guess number: %d</h3>", iGuessNum)
-	
 
 	if (iGuessNum != 0 && iGuessNum != gv.RandomNumber) {
 
 		fmt.Fprintf(w, "Number of tries: %d<br>", gv.TryNumber)
-		
+
 		if (iGuessNum < gv.RandomNumber) {
 			fmt.Fprintf(w, "Your number is lower than the random number<br>")
 		} else if (iGuessNum > gv.RandomNumber) {
@@ -126,7 +121,7 @@ func guessHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if save == true {
-			// store the guessing number in the number container
+			// store the guessing number in the number container when it's not a repeated number
 			numContainer = append(numContainer, iGuessNum)
 		}
 

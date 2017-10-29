@@ -10,33 +10,11 @@ This repository contains some example code written in the programming language G
 
 This problem set is to learn the fundamentals of creating a web application in Go. 
 
-### 1. Guessing game
-Object
-> Comment
-### 2. Make the text a H1
-Object
-> Comment
-### 3. Serve a page using Bootstrap
-Object
-> Comment
-### 4. Add a guess route
-Object
-> Comment
-### 5. Turn the guess page into a template
-Object
-> Comment
-### 6. Check for a cookie
-Object
-> Comment
-### 7. Check for a variable
-Object
-> Comment
-### 8. Compare the cookie and the guess
-Object
-> Comment
-### 9. Use the POST method
-Object
-> Comment
+## How to clone
+1. Open **Git Bash**.
+2. Change the current working directory to the location where you want the cloned directory to be made.
+3. Type 'git clone', and then paste the URL 'https://github.com/kentkim84/GoLangWebAppProject.git' or 'git@github.com:kentkim84/GoLangWebAppProject.git'
+git clone https://github.com/kentkim84/GoLangWebAppProject.git
 
 ## Coding Standards
 // Version 0.1 using C standards
