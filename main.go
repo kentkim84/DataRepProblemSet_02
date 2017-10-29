@@ -10,11 +10,28 @@ import (
 	"fmt"
 )
 
+const RAND_MAX_NUMBER int = 20
+
 type PageVariables struct {
 	HeadTitle string
 	BodyTitle string
 	Response string
 	Message string
+}
+
+type GameVariables struct {
+	TryNumber int
+	RandomNumber int
+}
+
+var gv GameVariables
+
+// create slices(=dynamic array)
+var numContainer []int = make([]int, 0)
+
+func initGameVar() {
+	gv = GameVariables{TryNumber: 0, RandomNumber: 0}
+	//fmt.Println("gv: ", gv.TryNumber, gv.RandomNumber)
 }
 
 // generate a random number
@@ -46,11 +63,11 @@ func guessHandler(w http.ResponseWriter, r *http.Request) {
 	// set local variables
 	headTitle := "Guessing Game"
 	message := "Guess a number between 1 and 20"
+	save := true
 
 	// set random number
-	maxNum := 20
 	rand.Seed(time.Now().UnixNano())
-	randNum := genRandInt(1, maxNum)
+	randNum := genRandInt(1, RAND_MAX_NUMBER)
 
 	// set up cookie
 	cookie := http.Cookie{Name: "target", Value: strconv.Itoa(randNum)}
@@ -77,59 +94,55 @@ func guessHandler(w http.ResponseWriter, r *http.Request) {
 	guessNum := r.FormValue("guess")
 	iGuessNum, err := strconv.Atoi(guessNum)
 	
+	
 
-	// initial try number count
-	tryNum := 1
-
-	// store game random number
-	var gameRandNum int
-
-	if tryNum == 1 {
-		gameRandNum = randNum
+	// increase the try number by 1
+	if gv.TryNumber == 0 && gv.RandomNumber == 0 {
+		/* fmt.Fprintf(w, "init random number: %d<br>", gv.RandomNumber)
+		fmt.Fprintf(w, "init try number: %d<br>", gv.TryNumber) */
+		gv.RandomNumber = randNum
 	}
-	fmt.Fprintf(w, "User guess: %d<br>", iGuessNum)
-	fmt.Fprintf(w, "Random number: %d<br>", gameRandNum)
+	
+	//fmt.Fprintf(w, "<h3>random number: %d</h3>", gv.RandomNumber)
+	//fmt.Fprintf(w, "<h3>try number: %d</h3>", gv.TryNumber)
+	fmt.Fprintf(w, "<h3>guess number: %d</h3>", iGuessNum)
+	
 
-	/* // create slices(=dynamic array)
-	numContainer := make([]int, 0)
+	if (iGuessNum != 0 && iGuessNum != gv.RandomNumber) {
 
-	// store the guessing number in the number container
-	numContainer = append(numContainer, iGuessNum) */
-
-	if (iGuessNum != gameRandNum) {
-		if (iGuessNum < gameRandNum) {
+		fmt.Fprintf(w, "Number of tries: %d<br>", gv.TryNumber)
+		
+		if (iGuessNum < gv.RandomNumber) {
 			fmt.Fprintf(w, "Your number is lower than the random number<br>")
-		} else if (iGuessNum > gameRandNum) {
+		} else if (iGuessNum > gv.RandomNumber) {
 			fmt.Fprintf(w, "Your number is higher than the random number<br>")
 		}
-		
-		fmt.Fprintf(w, "Number of tries: %d<br>", tryNum)
-		fmt.Fprintf(w, "Enter a guessing number<br>")
 
-		/* find := true
-		for find {
-			for i := 0; i < len(numContainer); i++  {
-				if (iGuessNum == numContainer[i]) {
-					fmt.Fprintf(w, "Enter a different guessing number")
-					//fmt.Scanln(&guessNum)
-				} else {
-					find = false
-				}
-				fmt.Fprintf(w, "A number in the container %d", numContainer[i]) // debuging purpose
+		for i := 0; i < len(numContainer); i++  {
+			if (iGuessNum != 0 && iGuessNum == numContainer[i]) {
+				fmt.Fprintf(w, "<h2>Enter a different guessing number</h2>")
+				save = false
 			}
 		}
-			
-		numContainer = append(numContainer, iGuessNum) */
+
+		if save == true {
+			// store the guessing number in the number container
+			numContainer = append(numContainer, iGuessNum)
+		}
+
+		fmt.Fprintf(w, "A number in the container: %d<br>", numContainer)
 	}
 
-	if (iGuessNum == gameRandNum) {
-		fmt.Fprintf(w, "You have tried: %d<br>", tryNum)
+	if (iGuessNum == gv.RandomNumber) {
+		fmt.Fprintf(w, "You have tried: %d<br>", gv.TryNumber)
 		fmt.Fprintf(w, "Numbers matched<br>")
 	}
-	tryNum += 1
+	gv.TryNumber += 1
 }
 
 func main() {
+	// call initGamevar to initialise game variables
+	initGameVar()
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/guess/", guessHandler)
     http.ListenAndServe(":8080", nil)
